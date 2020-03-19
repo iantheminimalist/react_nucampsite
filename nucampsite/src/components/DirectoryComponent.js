@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ExampleComp from './ExampleComponents'; //practicing Parent -> Child Components 
 
 class Directory extends Component{
     constructor(props){
@@ -52,8 +53,10 @@ class Directory extends Component{
                 <div className="row">
                     {directory}
                 </div>
+                {/*<ExampleComp />*/}
             </div>
         );
     }
 }
+
 export default Directory;
