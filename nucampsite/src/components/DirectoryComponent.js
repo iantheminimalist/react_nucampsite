@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import CampsiteInfo from './CampsiteInfoComponent';
 import {Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle} from 'reactstrap';
 //import ExampleComp from './ExampleComponents'; //practicing Parent -> Child Components 
 
@@ -48,11 +49,10 @@ class Directory extends Component {
                 <div className="row">
                     {directory}
                 </div>
-                <div className="row">
-                    <div className="col-md-5 m-1">
-                        {this.renderSelectedCampsite(this.state.selectedCampsite)}
-                    </div>
-                </div>
+                {/*                
+                <CampsiteInfo campsites={this.renderSelectedCampsite(this.state.selectedCampsite)}/>*/}
+
+                <CampsiteInfo campsites={this.state.selectedCampsite} campsitesInfo={this.props.campsites}/>
             </div>
         );
     }

@@ -5,6 +5,7 @@ import {CAMPSITES} from './shared/campsites';
 import 'typeface-lobster';
 import 'typeface-open-sans';
 import './App.css';
+
 class App extends Component {
   constructor(props){
     super(props);
@@ -21,7 +22,7 @@ class App extends Component {
                 </div>
                 </Navbar>
                 <Directory campsites={this.state.campsites}/>
-                
+
             </div>
         );
     }
