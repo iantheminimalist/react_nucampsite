@@ -1,33 +1,12 @@
-import React, { Component } from "react";
+import React from "react";
 import {Card, CardImg, CardText, CardBody, CardTitle} from 'reactstrap';
 
 
-class CampsiteInfo extends Component{
-constructor(props){
-    super(props);
-    this.state = {
-        selectedCampsite: null
-    };
-}
 
-renderComments(campsites){
-if(campsites){
-    return(
-    <div className="col-md-5 m-1">
-        <h4>Comments</h4>
-            {campsites.comments.map(comment => 
-            <div key={comment.id}>
-               <p>{comment.text} - {comment.author},{new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}</p> 
-            </div>)
-                }
-        </div>
-    );
-}
-return <div />; //returns Comments if fails
-}
-renderCampsite(campsite){
+function RenderCampsite({campsite}){
     if (campsite) {
         return (
+            <div className="col-md-5 m-1">
             <Card>
                 <CardImg top src={campsite.image} alt={campsite.name} />
                 <CardBody>
@@ -35,24 +14,51 @@ renderCampsite(campsite){
                     <CardText>{campsite.description}</CardText>
                 </CardBody>
             </Card>
+            </div>
         );
     }
     return <div />; //returns Comments if fails
 }
-render(){
-const campsites = this.props.campsite;
+function RenderComments({comments}){
+if(comments){
     return(
-    <div className="container">
-        <div className="row">
-            <div className="col-md-5 m-1">
-                {this.renderCampsite(this.props.campsite)}
-
-            </div>
-            {this.renderComments(campsites)}
+    <div className="col-md-5 m-1">
+        <h4>Comments</h4>
+        {comments.map(comment => {
+            return(
+                <div key={comment.id}>
+                    <p>{comment.text}<br /> 
+                    {comment.author} - {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}
+                    </p>
+                </div>
+            );
+        })}
+                
         </div>
-    </div>
+        
     );
-}//End of render
-}//End of Class
+}
+
+return <div />; //returns Comments if fails
+}
+
+
+function CampsiteInfo(props){
+    if (props.campsite){
+        return(
+            <div className="container">
+                <div className="row">
+                <RenderCampsite campsite={props.campsite} />
+                <RenderComments comments={props.campsite.comments} />
+                </div>
+            </div>
+        );
+    }
+    return <div />
+}
+
+
+
+
 
 export default CampsiteInfo;
