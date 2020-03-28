@@ -1,13 +1,19 @@
 import React, { Component } from 'react';
 import 'typeface-lobster';
 import 'typeface-open-sans';
+import {BrowserRouter} from 'react-router-dom';
 import './App.css';
 import Main from './components/MainComponent';
 
 class App extends Component {
     render() {
         return (
-          <Main />
+          <BrowserRouter>
+            <div className='App'>
+              <Main />
+            </div>
+          </BrowserRouter>
+
         );
     }
 }
