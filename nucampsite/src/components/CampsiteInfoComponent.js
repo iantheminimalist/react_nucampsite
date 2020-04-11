@@ -1,6 +1,7 @@
 import React from "react";
 import {Card, CardImg, CardText, CardBody, CardTitle, Button, Modal, ModalBody,ModalHeader,Label, Col, Row } from 'reactstrap';
 import { Control, LocalForm, Errors } from 'react-redux-form';
+import { Loading } from './LoadingComponent';
 
 const required = val => val && val.length;
 const maxLength = len => val => !val || (val.length <= len);
@@ -22,10 +23,10 @@ function RenderCampsite({campsite}){
     }
     return <div />; //returns Comments if fails
 }
-function RenderComments({comments}){ 
+function RenderComments({comments, addComment, campsiteId}){ 
 if(comments){
     return(
-    <div className="col-md-5 m-1">
+    <div className="col-md-5 m-1"> 
         <h4>Comments</h4>
         {comments.map(comment => {
             return(
@@ -35,8 +36,8 @@ if(comments){
                     </p>
                 </div>
             );
-        })}
-                
+        })}     
+        <CommentForm campsiteId={campsiteId} addComment={addComment} />
         </div>
         
     );
@@ -60,11 +61,10 @@ toggleModal() {
         isModalOpen: !this.state.isModalOpen
     });
 }
-handleSubmit(values){
-    console.log("Current state is: " + JSON.stringify(values));
-    alert("Current state is: " + JSON.stringify(values));
-
-} 
+handleSubmit(values) {
+    this.toggleModal();
+    this.props.addComment(this.props.campsiteId, values.rating, values.author, values.text);
+}
     render(){
         return(
             <div className="col-md-5 m-1">
@@ -139,13 +139,37 @@ handleSubmit(values){
     }
 }
 function CampsiteInfo(props){
+    if (props.isLoading) {
+        return (
+            <div className="container">
+                <div className="row">
+                    <Loading />
+                </div>
+            </div>
+        );
+    }
+    if (props.errMess) {
+        return (
+            <div className="container">
+                <div className="row">
+                    <div className="col">
+                        <h4>{props.errMess}</h4>
+                    </div>
+                </div>
+            </div>
+        );
+    }
     if (props.campsite){
         return(
             <div className="container">
                 <div className="row">
                 <RenderCampsite campsite={props.campsite} />
-                <RenderComments comments={props.comments} />
-                <CommentForm />
+                <RenderComments
+                        comments={props.comments}
+                        addComment={props.addComment}
+                        campsiteId={props.campsite.id}
+                    />
+
                 </div>
             </div>
         );
