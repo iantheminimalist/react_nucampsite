@@ -3,6 +3,7 @@ import {Card, CardImg, CardText, CardBody, CardTitle, Button, Modal, ModalBody,M
 import { Control, LocalForm, Errors } from 'react-redux-form';
 import { Loading } from './LoadingComponent';
 import { baseUrl } from '../shared/baseUrl';
+
 const required = val => val && val.length;
 const maxLength = len => val => !val || (val.length <= len);
 const minLength = len => val => val && (val.length >= len);
@@ -37,7 +38,7 @@ if(comments){
                 </div>
             );
         })}     
-        <CommentForm campsiteId={campsiteId} addComment={addComment} />
+            <CommentForm campsiteId={campsiteId} addComment={addComment} />
         </div>
         
     );
